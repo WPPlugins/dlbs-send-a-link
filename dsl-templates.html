@@ -1,0 +1,74 @@
+<!--*****************************************************
+ *	Message and confirmation templates for dlb's Send-A-Link (dsl)
+ *
+ *	Contains templates in separate sections for:
+ *	- Confirmation page
+ *	- Email message
+ *
+ *	This file is used by dsl.php, and is expected to be found 
+ *	in the same folder as dsl.php.
+ *
+ * The following placeholders are available. To use, they must be enclosed in #'s:
+ *	- dsl-post-title
+ *	- dsl-recipient-name
+ *	- dsl-recipient-address
+ *	- dsl-sender-name
+ *	- dsl-post-id
+ *	- dsl-post-author
+ *	- dsl-post-date
+ *	- dsl-back-link
+ *	- dsl-comments
+ *	- dsl-message-subject
+ *	- dsl-message-body
+ *	- dsl-submit-button
+ *	- wp-nonce
+ *	- captcha-random
+ *	- captcha-image
+ *	- captcha-audio
+ *	- max-comment-chars
+ *	- min-name-chars
+ *	- max-name-chars
+-->
+<!--*****************************************************
+ * Confirm template:
+ * shown after successfully sending email
+-->
+<confirm>
+	<p> 
+		Here is a copy of the message that was sent to 
+		#dsl-recipient-name# at (#dsl-recipient-address#):
+	</p>
+	<div class="message">
+		<p>Subject: #dsl-message-subject#</p>
+		<p>#dsl-message-body#</p>
+	</div>
+	<p>
+		Now, you can <a href="" onclick="location.reload(); return false;">send another message</a>,<br />
+		or, you can return to <a href="#dsl-back-link#">the article page</a>.
+	</p>
+</confirm>
+<!--*****************************************************
+ * Message template:
+ * used to construct the email message
+-->
+<message>
+	<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Check out <em>#dsl-post-title#</em> on Bezaire's Ramblings blog</title>
+	</head>
+	<body>
+		<p>Hi #dsl-recipient-name#,</p>
+		<p>#dsl-sender-name# has suggested that you take a look at article 
+		<a href="http://Bezaires.com/blog/post-id/#dsl-post-id#"><em>#dsl-post-title#</em></a> on 
+		<a href="http://Bezaires.com/blog/">Bezaire's Ramblings</a> blog
+		which was posted by #dsl-post-author# on #dsl-post-date#.</p>
+		<p class="comment">Here are #dsl-sender-name#'s comments about it:</p>
+		<p class="comment" style="margin:0 1em;font-weight:bold;">#dsl-comments#</p>
+		<hr>
+		<p>Link to article: <a href="http://Bezaires.com/blog/post-id/#dsl-post-id#">http://Bezaires.com/blog/post-id/#dsl-post-id#</a><br />
+		Link to Bezaire's Ramblings blog: <a href="http://Bezaires.com/blog">http://Bezaires.com/blog</a></p>
+		<hr>
+	</body>
+	</html>
+</message>

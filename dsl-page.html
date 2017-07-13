@@ -1,0 +1,109 @@
+<!--*****************************************************
+ * Page template for dlb's Send-A-Link (dsl)
+ *
+ * This file should be based on the structure seen in file page.php from the theme folder.
+ *
+ * It includes the form in one div and the confirmation in a separate div.
+ * The confirm div is initially hidden with style display:none;.
+ * Later it is shown with style display:block as the form is hidden with style display:none;.
+ *
+ * This file is used by dsl.php, and is expected to be found 
+ * in the same folder as dsl.php.
+ *
+ * The following placeholders are available. To use, they must be enclosed in #'s:
+ *	- dsl-post-title
+ *	- dsl-recipient-name
+ *	- dsl-recipient-address
+ *	- dsl-sender-name
+ *	- dsl-post-id
+ *	- dsl-post-author
+ *	- dsl-post-date
+ *	- dsl-back-link
+ *	- dsl-comments
+ *	- dsl-message-subject
+ *	- dsl-message-body
+ *	- dsl-submit-button
+ *	- wp-nonce
+ *	- captcha-random
+ *	- captcha-image
+ *	- captcha-audio
+ *	- max-comment-chars
+ *	- min-name-chars
+ *	- max-name-chars
+-->
+<!--*****************************************************
+ *	Content Div opening tag 
+-->
+	<div id="content">
+<!--*****************************************************
+ *	The form template starts here.
+	All the hidden fields are grouped in the first paragraph. 
+	The unusual label on the hidden "dsl_pid" field is to handle a general form-level error message.
+	The empty spans in the labels are to accept error messages specific to the corresponding inputs.
+	Although text can be customized, the arrangement of the markup is important, 
+	including the order of attributes within the tags.
+-->
+		<div class="post" id="dsl-form-div">
+			<h2 class="posttitle">
+				Send someone a link to the article <em>#dsl-post-title#</em>
+			</h2>
+			<div class="postentry">
+				<form id="dsl-form" action="" method="post" name="dsl-form" onsubmit="dslSend(this); return false;">
+					<p>
+					   <input name="dsl_nonce"			type="hidden"	value="#wp-nonce#"       />
+					   <input name="dsl_secure"			type="hidden"	value=""                 />
+					   <input name="dsl_captcha_random"	type="hidden"	value="#captcha-random#" />
+					   <input name="dsl_back"			type="hidden"	value="#dsl-back-link#"  />
+					   <label  for="dsl_pid"                       ><span class="dsl-error-field"></span></label>
+					  <input  name="dsl_pid"			type="hidden"	value="#dsl-post-id#"    />
+					</p>
+					<p><label  for="dsl_rname"    >Recipient's name:<span class="dsl-error-field"></span></label><br />
+					  <input  name="dsl_rname"			type="text"		maxlength="#max-name-chars#" /></p>
+					<p><label  for="dsl_raddress" >Recipient's email address:<span class="dsl-error-field"></span></label><br />
+					  <input  name="dsl_raddress"		type="text" /></p>
+					<p><label  for="dsl_sname"    >Your name:<span class="dsl-error-field"></span></label><br />
+					  <input  name="dsl_sname"			type="text" 	maxlength="#max-name-chars#" /></p>
+					<p><label  for="dsl_saddress" >Your email address:<span class="dsl-error-field"></span></label><br />
+					  <input  name="dsl_saddress"		type="text" /></p>
+					<p><label  for="dsl_comments" >Your comments (optional):<span class="dsl-error-field"></span></label><br />
+					<textarea name="dsl_comments"						maxlength="#max-comment-chars#" /></textarea></p>
+					<div id="dsl-captcha">
+					<p><label  for="dsl_captcha"  >Security check:<span class="dsl-error-field"></span></label></p>
+					<div>#captcha-image#
+					   <input name="dsl_captcha"		type="text"		value="" autocomplete="off" />
+						<br />
+						<a href="javascript:captchas_image_reload('captchas.net')">Reload</a>
+						&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="#captcha-audio#">Audio</a><br />
+					</div>
+					</div>
+					<p class="button">
+					   <label  for="dsl_submit"><span class="dsl-error-field"></span></label>
+					  <input  name="dsl_submit"			type="submit"	value="#dsl-submit-button#" /></p>
+				</form>
+				<p>Or, you can return to <a href="#dsl-back-link#">the article page</a> without sending a link.</p>
+				<div id="dsl-loader"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			// this Javascript statement llows the tab key to go from the comments field to the captcha entry field without stopping on the captcha image
+			document.getElementById('dsl-captcha').getElementsByTagName('div')[0].getElementsByTagName('a')[0].tabIndex=10;
+		</script>
+<!--*****************************************************
+ * The confirmation page template starts here 
+ *
+ * This is just an empty div that gets filled in later
+ * with the contents of the email message sent.
+-->
+		<div class="post" id="dsl-confirm-div">
+			<h2 class="posttitle">
+				Link sent
+			</h2>
+			<div class="postentry">
+			</div>
+		</div>
+<!--*****************************************************
+ *	Content Div closing tag 
+ *
+-->
+	</div>
